@@ -5,7 +5,7 @@ const categoryJson = require('./category.json');
 const categoriesJson = require('./categories.json');
 
 app.use(function(req, res, next) {
-   res.header("Access-Control-Allow-Origin", "https://sushi-gemu.doriantaing.fr/");
+   res.header("Access-Control-Allow-Origin", "https://sushi-gemu.doriantaing.fr");
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    next();
  });
