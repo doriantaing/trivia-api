@@ -5,13 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "express-generator": "^4.16.0"
+    "express-generator": "^4.16.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1"
   },
   "engines": {
     "node": "9.5.0"
