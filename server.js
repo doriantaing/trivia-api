@@ -4,10 +4,12 @@ const port = process.env.PORT || 5000;
 const categoryJson = require('./category.json');
 const categoriesJson = require('./categories.json');
 const mysql = require('mysql');
+const settings = require('./settings');
+
 const conn = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'hetic',
+    user: settings.username,
+    password: settings.password,
     database: 'sushi_gemu'
 });
 
@@ -28,16 +30,16 @@ app.use(function(req, res, next) {
 app.route('/api/categories').get((req , res) => {
     const data = [];
     const sqlQuery = `
-        SELECT category
+        SELECT category , questionId
         FROM categories
     `;
 
     conn.query(sqlQuery, (err, rows, fields) => {
         if (err) throw err;
         rows.map(el => {
-           data.push(el)
-        });    
-        
+           data.push({title: el.category , id: el.questionId})
+        });
+        console.log(data);
         res.status(200).json({data})
     });
     
@@ -49,17 +51,25 @@ app.route('/api/category')
         res.json( categoryJson );
    });
 
-app.route('/api/categories/id=:id')
+app.route('/api/category/id=:id')
     .get( (req , res) => {
-       let answer;
+       let data = [];
        let dataError = 'No data found';
+       const sqlQuery = `
+        SELECT question , answer , id
+        FROM questions
+        WHERE ${req.params.id} = questionId
+        LIMIT 10
+        `;
 
-       categoriesJson.forEach(element => {
-         if(req.params.id  === String(element.id)) {
-            answer = element;
-         }
-       });
-       answer !== undefined ? res.send(answer) : res.send(dataError);
+        conn.query(sqlQuery, (err, rows, fields) => {
+            if (err) throw err;
+            rows.map(el => {
+                data.push(el)
+            });
+
+             data.length > 0 ? res.send(data) : res.send(dataError);
+        });
     });
 
 
