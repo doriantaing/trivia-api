@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
-const categoryJson = require('./category.json');
-const categoriesJson = require('./categories.json');
 const mysql = require('mysql');
 const settings = require('./settings');
 
@@ -74,7 +72,7 @@ app.route('/api/category/id=:id')
 
 
 app.get('*' , (req , res) => {
-   res.status(404).send('Get the fuck out ');
+   res.status(404).send('404');
 })
 
  app.listen(port, () => console.log(`Listening on port ${port}`));
