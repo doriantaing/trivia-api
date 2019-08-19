@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const settings = require('./settings');
 
 const conn = mysql.createConnection({
-    host: 'localhost',
+    host: 'sushi-gemu-aws.cevgmwsivig4.eu-west-3.rds.amazonaws.com',
     user: settings.username,
     password: settings.password,
     database: 'sushi_gemu'
@@ -35,12 +35,11 @@ app.route('/api/categories').get((req , res) => {
     conn.query(sqlQuery, (err, rows, fields) => {
         if (err) throw err;
         rows.map(el => {
-           data.push({title: el.category , id: el.questionId})
+            data.push({title: el.category , id: el.questionId})
         });
-        console.log(data);
         res.status(200).json({data})
     });
-    
+
     // conn.end();
 });
 
