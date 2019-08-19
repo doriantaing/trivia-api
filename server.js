@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const mysql = require('mysql');
-const settings = require('./settings');
+require('dotenv').config();
 
 const conn = mysql.createConnection({
     host: 'sushi-gemu-aws.cevgmwsivig4.eu-west-3.rds.amazonaws.com',
-    user: settings.username,
-    password: settings.password,
+    user: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
     database: 'sushi_gemu'
 });
 
