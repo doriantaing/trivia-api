@@ -2,11 +2,17 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const mysql = require('mysql');
+const aws = require('aws-sdk');
 require('dotenv').config();
+
+let s3 = new aws.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
 const conn = mysql.createConnection({
     host: 'sushi-gemu-aws.cevgmwsivig4.eu-west-3.rds.amazonaws.com',
-    user: process.env.DB_NAME,
+    user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: 'sushi_gemu'
 });
